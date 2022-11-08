@@ -1,0 +1,90 @@
+#include <stdio.h>
+#include <stdlib.h>
+int qs(int a[], int l, int h,int n, int *k)
+{
+	if(h > l)
+	{
+		int m = par(a,l,h,h - l +1,k);
+	    qs(a,l,m - 1,h - l +1,k);
+		qs(a,m + 1,h,h - l +1,k);
+	}
+   
+}
+
+int par(int a[],int l, int h,int size,int *k)
+{
+	int z,j,t = 0;
+	z = rand() % size + l ;
+	
+		t = a[z];
+		a[z] = a[h];
+		a[h] = t;
+		
+	int p = a[h];
+	int i = l - 1;
+	for(j = l;j < h;j++)
+	{
+		if(a[j] <= p)
+		{
+			i++;
+			t = a[i];
+			a[i] = a[j];
+			a[j] = t;
+		}
+		*k = *k +1;
+	}
+		t = a[i + 1];
+		a[i + 1] = a[h];
+		a[h] = t;
+    	return (i+1);
+}
+
+
+
+int arrayPrint(int arr[])
+{
+	int i;
+	for(i = 0;i < 100; i++)
+		printf("%d\t",arr[i]);
+	printf("\n");
+	printf("\n");	
+}
+
+int main()
+{
+	int a[100];
+	int b[100];
+	int c[100];
+	int i,k = 0, n = 0;
+	for(i = 0;i < 100; i++)
+	{
+		a[i] = i;
+		b[i] = 100 - i;
+		c[i] = rand() % 100;
+	}
+	printf("Enter your choice\n");
+	scanf("%d",&n);
+	if(n == 3)
+	{
+		qs(a,0,99,100,&k);
+		{
+			arrayPrint(a);
+			printf("The number of comparisons are %d \n",k);
+		}
+		k = 0;
+		qs(b,0,99,100,&k);
+		{
+			arrayPrint(b);
+			printf("The number of comparisons are %d \n",k);
+		}
+		k = 0;
+		qs(c,0,99,100,&k);
+		{
+			arrayPrint(c);
+			printf("The number of comparisons are %d \n",k);
+		}
+	}
+}
+
+
+
