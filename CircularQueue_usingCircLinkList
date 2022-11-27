@@ -1,0 +1,95 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct node
+{
+    struct node *next;
+    int val;
+}node;
+node *front = NULL;
+node *rear = NULL;
+void enqueue(int x)
+{
+    node *nw;
+    nw = (node*)malloc(sizeof(node));
+    nw->val = x;
+    nw->next = NULL;
+    if(rear == NULL)
+    {
+        front = nw;
+        rear = nw;
+        rear->next = front;
+    }
+    else
+    {
+        rear->next = nw;
+        rear = nw;
+        nw->next = front;
+    }
+}
+void dequeue()
+{
+    node *temp = front;
+    int x;
+    if(front == NULL && rear == NULL)
+    {
+        printf("List is empty\n");
+        return;
+    }
+    else
+    {
+        if(front == front->next)
+        {
+            x = front->val;
+            printf("The Deleted node or root is %d\n",x);
+            free(temp);
+            front = rear = NULL;
+            return;
+        }
+        else
+        {
+            x = front->val;
+            front = front->next;
+            rear->next = temp;
+            printf("The Deleted node or root is %d\n",x);
+            free(temp);   
+        }
+        return ;
+    }
+}
+void disp()
+{
+    node *s;
+    if(front == NULL && rear == NULL)
+    {
+        printf("The list is empty\n");
+        return ;
+    }
+    else
+    {
+        for(s = front; s!=rear; s = s->next)
+            printf("%d\t",s->val);
+        printf("%d\n",s->val);
+    }
+}
+int main()
+{
+    int a,ch = 0;
+    while(ch != 4)
+    {
+        printf("1.Enqueue\n 2.Dequeue\n 3.Display\n 4.Exit\n");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1: printf("Enter a No.\n");
+                    scanf("%d",&a);
+                    enqueue(a);
+                    break;
+            case 2: dequeue();
+                    break;
+            case 3: disp();
+                    break;
+            case 4: break;
+            default: printf("Wrong Choice!!\n");
+        }
+    }
+}
