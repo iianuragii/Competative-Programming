@@ -5,7 +5,7 @@ int qs(int a[], int l, int h,int n, int *k)
 	if(h > l)
 	{
 		int m = par(a,l,h,h - l +1,k);
-	    qs(a,l,m - 1,h - l +1,k);
+	    	qs(a,l,m - 1,h - l +1,k);
 		qs(a,m + 1,h,h - l +1,k);
 	}
    
